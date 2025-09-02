@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Fitness Gym - Professional Fitness Website</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            scroll-behavior: smooth;
+        }
+        .theme-transition {
+            transition: background-color 0.5s, color 0.5s;
+        }
+        .section-hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .section-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        .mobile-menu-open {
+            max-height: 500px;
+        }
+        .modal {
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+        .modal.modal-open {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            transform: scale(0.95);
+            transition: transform 0.3s ease-in-out;
+        }
+        .modal.modal-open .modal-content {
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 dark:bg-black text-slate-900 dark:text-white theme-transition">
+
+    <!-- HEADER -->
+    <header class="fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto px-6 py-4 mt-4 bg-white/10 dark:bg-black/10 backdrop-blur-lg rounded-full border border-white/20 dark:border-black/20 shadow-lg">
+            <div class="flex items-center justify-between">
+                <a href="#" class="flex items-center space-x-2">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 dark:text-amber-400 w-6 h-6"><path d="M2 12h20"></path><path d="M5 5v14"></path><path d="M19 5v14"></path><path d="M3 8h2"></path><path d="M19 8h2"></path><path d="M3 16h2"></path><path d="M19 16h2"></path></svg>
+                    <span class="text-xl font-bold text-slate-800 dark:text-white">Power Fitness Gym</span>
+                </a>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300">Home</a>
+                    <a href="#programs" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300">Programs</a>
+                    <a href="#about" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300">About</a>
+                    <a href="#pricing" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300">Pricing</a>
+                    <a href="#community" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300">Community</a>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-full bg-white/20 dark:bg-black/20 hover:bg-white/30 dark:hover:bg-black/30 transition-colors duration-300" aria-label="Toggle theme">
+                        <svg id="theme-icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-yellow-400"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg id="theme-icon-moon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-800 hidden"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    </button>
+                    <a href="#pricing" class="hidden md:block px-4 py-2 text-sm font-semibold text-white bg-amber-600 rounded-full hover:bg-amber-700 transition-transform duration-300 hover:scale-105 shadow-lg">Join Now</a>
+                    <button id="mobile-menu-button" class="md:hidden p-2 rounded-full bg-white/20 dark:bg-black/20">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-800 dark:text-white"><line x1="4" x2="20" y1="12" y2="12"></line><line x1="4" x2="20" y1="6" y2="6"></line><line x1="4" x2="20" y1="18" y2="18"></line></svg>
+                    </button>
+                </div>
+            </div>
+            <div id="mobile-menu" class="mobile-menu md:hidden mt-4 flex flex-col items-center space-y-4">
+                <a href="#" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300 py-2">Home</a>
+                <a href="#programs" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300 py-2">Programs</a>
+                <a href="#about" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300 py-2">About</a>
+                <a href="#pricing" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300 py-2">Pricing</a>
+                <a href="#community" class="text-slate-700 dark:text-slate-300 hover:text-amber-500 dark:hover:text-amber-400 transition-colors duration-300 py-2">Community</a>
+                <a href="#pricing" class="w-full text-center px-4 py-2 text-sm font-semibold text-white bg-amber-600 rounded-full hover:bg-amber-700 transition-transform duration-300 hover:scale-105 shadow-lg">Join Now</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative w-full h-screen flex items-center justify-center overflow-hidden">
+        <div class="absolute inset-0 -z-20">
+            <img src="https://images.unsplash.com/photo-1576678927484-cc907957088c?q=80&w=1974&auto=format&fit=crop" alt="Gym background" class="w-full h-full object-cover">
+        </div>
+        <div class="absolute inset-0 bg-white/10 dark:bg-black/70 backdrop-blur-sm -z-10"></div>
+        <div class="container mx-auto px-6 grid md:grid-cols-2 gap-8 items-center pt-32 md:pt-0">
+            <div class="text-center md:text-left">
+                <h4 class="font-semibold text-amber-600 dark:text-amber-400 mb-2 tracking-widest">BEST FITNESS IN THE TOWN</h4>
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold text-slate-900 dark:text-white leading-tight"><span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-600 to-amber-400">MAKE</span> YOUR BODY SHAPE</h1>
+                <p class="mt-6 text-lg text-slate-800 dark:text-slate-300 max-w-lg mx-auto md:mx-0">Unleash your potential and embark on a journey towards a stronger, fitter, and more confident you. Your peak fitness journey begins now.</p>
+                <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                    <a href="#pricing" class="px-8 py-3 text-center font-semibold text-white bg-amber-600 rounded-full hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg">Get Started</a>
+                </div>
+            </div>
+            <div id="interactive-model-container" class="w-full h-[400px] md:h-[500px] flex items-center justify-center">
+                <div class="relative w-full h-full cursor-grab active:cursor-grabbing">
+                    <div class="absolute inset-0">
+                        <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2ba8c2?q=80&w=2070&auto=format&fit=crop" alt="Fitness Model" class="w-full h-full object-contain" style="mask-image: radial-gradient(circle at center, black 50%, transparent 80%); -webkit-mask-image: radial-gradient(circle at center, black 50%, transparent 80%);">
+                    </div>
+                    <svg viewBox="0 0 400 500" class="absolute top-0 left-0 w-full h-full">
+                        <defs>
+                            <linearGradient id="skinGradient" x1="0" y1="0.5" x2="1" y2="0.5">
+                                <stop offset="0%" stop-color="#D99B6F"></stop>
+                                <stop offset="50%" stop-color="#A66A40"></stop>
+                                <stop offset="100%" stop-color="#D99B6F"></stop>
+                            </linearGradient>
+                            <linearGradient id="dumbbellGradient" x1="0" y1="0" x2="1" y2="1">
+                                <stop id="dumbbell-stop1" offset="0%"></stop>
+                                <stop id="dumbbell-stop2" offset="100%"></stop>
+                            </linearGradient>
+                        </defs>
+                        <path id="bicep" d="M 250 210 Q 275 260 230 320 L 210 310 Q 245 255 250 210 Z" fill="url(#skinGradient)"></path>
+                        <g id="forearm-group">
+                            <path d="M 230 320 Q 210 370 225 400 L 245 390 Q 235 360 230 320 Z" fill="url(#skinGradient)"></path>
+                            <circle cx="235" cy="400" r="18" fill="url(#skinGradient)"></circle>
+                            <rect x="195" y="390" width="80" height="20" rx="5" fill="url(#dumbbellGradient)"></rect>
+                            <circle cx="185" cy="400" r="25" fill="url(#dumbbellGradient)"></circle>
+                            <circle cx="285" cy="400" r="25" fill="url(#dumbbellGradient)"></circle>
+                        </g>
+                        <text x="200" y="480" text-anchor="middle" font-size="12" class="font-sans select-none pointer-events-none text-gray-600 dark:text-gray-400">Click for fast reps. Move mouse to control.</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMS SECTION -->
+    <section id="programs" class="py-20 px-4 section-hidden">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Explore Our Programs</h2>
+            <p class="text-center max-w-2xl mx-auto text-slate-600 dark:text-slate-400 mb-12">We offer a diverse range of programs to cater to all fitness levels and goals. Find the perfect fit for your journey.</p>
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                 <div class="bg-white/5 dark:bg-gray-800/20 rounded-2xl shadow-lg overflow-hidden group transition-transform duration-300 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1581009137042-c552e485697a?q=80&w=2070&auto=format&fit=crop" alt="Strength Training" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Strength Training</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm">Build muscle and increase your core strength with our state-of-the-art weight training facilities and expert guidance.</p>
+                        <a href="#pricing" class="font-semibold text-amber-500 dark:text-amber-400 hover:text-amber-600 dark:hover:text-amber-300">Learn More &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-white/5 dark:bg-gray-800/20 rounded-2xl shadow-lg overflow-hidden group transition-transform duration-300 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1571902943202-507ec2618e8f?q=80&w=1975&auto=format&fit=crop" alt="Cardio & Endurance" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Cardio & Endurance</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm">Improve your cardiovascular health and stamina with a wide range of equipment and high-intensity classes.</p>
+                        <a href="#pricing" class="font-semibold text-amber-500 dark:text-amber-400 hover:text-amber-600 dark:hover:text-amber-300">Learn More &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-white/5 dark:bg-gray-800/20 rounded-2xl shadow-lg overflow-hidden group transition-transform duration-300 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?q=80&w=2120&auto=format&fit=crop" alt="Flexibility & Yoga" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Flexibility & Yoga</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm">Enhance your mobility, reduce stress, and find your balance in our dedicated yoga and stretching zones.</p>
+                        <a href="#pricing" class="font-semibold text-amber-500 dark:text-amber-400 hover:text-amber-600 dark:hover:text-amber-300">Learn More &rarr;</a>
+                    </div>
+                </div>
+                <div class="bg-white/5 dark:bg-gray-800/20 rounded-2xl shadow-lg overflow-hidden group transition-transform duration-300 hover:-translate-y-2">
+                    <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=2070&auto=format&fit=crop" alt="Group Fitness" class="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300" />
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Group Fitness</h3>
+                        <p class="text-slate-600 dark:text-slate-400 mb-4 text-sm">Stay motivated and have fun in a supportive environment with classes like Zumba, HIIT, and Cycling.</p>
+                        <a href="#pricing" class="font-semibold text-amber-500 dark:text-amber-400 hover:text-amber-600 dark:hover:text-amber-300">Learn More &rarr;</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+     <section id="about" class="py-20 px-4 section-hidden">
+        <div class="container mx-auto grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative h-[400px] md:h-[500px]">
+                <img src="https://images.unsplash.com/photo-1605296867304-46d5465a13f1?q=80&w=2070&auto=format&fit=crop" alt="Professional Trainer" class="absolute top-0 right-0 w-3/4 h-3/4 object-cover rounded-2xl shadow-2xl transition-transform duration-500 hover:rotate-6">
+                <img src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=2070&auto=format&fit=crop" alt="Modern Gym" class="absolute bottom-0 left-0 w-1/2 h-1/2 object-cover rounded-2xl shadow-2xl border-4 border-slate-100 dark:border-black transition-transform duration-500 hover:-rotate-6">
+            </div>
+            <div>
+                <h2 class="text-3xl md:text-4xl font-bold mb-6">World-Class Instruction</h2>
+                <p class="text-slate-600 dark:text-slate-400 mb-8 text-lg">Led by our team of expert and motivational instructors, our classes are high-energy, results-driven sessions that combine a perfect blend of cardio, strength training, and functional exercises. Each class is carefully curated to keep you engaged and challenged.</p>
+                <div class="mt-8">
+                     <!-- Barbell SVG would go here if needed -->
+                </div>
+                <div class="text-center mt-8">
+                    <a href="#pricing" class="px-8 py-3 text-center font-semibold text-white bg-amber-600 rounded-full hover:bg-amber-700 transition-all duration-300 transform hover:scale-105 shadow-lg">Meet The Trainers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PRICING SECTION -->
+    <section id="pricing" class="py-20 px-4 section-hidden">
+         <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold text-center mb-4">Our Pricing Plan</h2>
+            <p class="text-center max-w-2xl mx-auto text-slate-600 dark:text-slate-400 mb-12">Our pricing plan comes with various membership tiers, each tailored to cater to different preferences and fitness aspirations.</p>
+            <div class="grid lg:grid-cols-3 gap-8 max-w-4xl mx-auto">
+                <div class="relative p-8 rounded-2xl border border-white/20 bg-white/5 dark:bg-gray-800/20 shadow-xl flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-semibold text-center mb-2">Basic Plan</h3>
+                        <p class="text-4xl font-bold text-center mb-6">₹ 751<span class="text-lg font-normal text-slate-500">/mo</span></p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">Smart workout plan</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">At home workouts</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">Locker access</span></li>
+                        </ul>
+                    </div>
+                    <button data-plan='{"name":"Basic Plan","price":"₹ 751","features":["Smart workout plan","At home workouts","Locker access"]}' class="choose-plan-btn w-full py-3 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-amber-500 bg-transparent border border-amber-500 hover:bg-amber-500 hover:text-white dark:hover:text-slate-900">Choose Plan</button>
+                </div>
+                <div class="relative p-8 rounded-2xl border border-amber-500 bg-white/5 dark:bg-gray-800/20 shadow-xl flex flex-col">
+                    <div class="absolute top-0 -translate-y-1/2 left-1/2 -translate-x-1/2 px-4 py-1 bg-amber-500 text-white text-sm font-semibold rounded-full">Most Popular</div>
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-semibold text-center mb-2">Standard Plan</h3>
+                        <p class="text-4xl font-bold text-center mb-6">₹ 1101<span class="text-lg font-normal text-slate-500">/mo</span></p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">PRO Gyms</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">Smart workout plan</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">At home workouts</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">Access to basic classes</span></li>
+                        </ul>
+                    </div>
+                    <button data-plan='{"name":"Standard Plan","price":"₹ 1101","features":["PRO Gyms","Smart workout plan","At home workouts","Access to basic classes"]}' class="choose-plan-btn w-full py-3 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 bg-amber-600 text-white hover:bg-amber-700">Choose Plan</button>
+                </div>
+                <div class="relative p-8 rounded-2xl border border-white/20 bg-white/5 dark:bg-gray-800/20 shadow-xl flex flex-col">
+                    <div class="flex-grow">
+                        <h3 class="text-2xl font-semibold text-center mb-2">Premium Plan</h3>
+                        <p class="text-4xl font-bold text-center mb-6">₹ 1791<span class="text-lg font-normal text-slate-500">/mo</span></p>
+                        <ul class="space-y-4 mb-8">
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">ELITE Gyms & Classes</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">PRO Gyms</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">Smart workout plan</span></li>
+                            <li class="flex items-center space-x-3"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500"><polyline points="20 6 9 17 4 12"></polyline></svg><span class="text-slate-600 dark:text-slate-400">Personal Training (2 sessions/mo)</span></li>
+                        </ul>
+                    </div>
+                    <button data-plan='{"name":"Premium Plan","price":"₹ 1791","features":["ELITE Gyms & Classes","PRO Gyms","Smart workout plan","Personal Training (2 sessions/mo)"]}' class="choose-plan-btn w-full py-3 font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-amber-500 bg-transparent border border-amber-500 hover:bg-amber-500 hover:text-white dark:hover:text-slate-900">Choose Plan</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section id="testimonials" class="py-20 px-4 bg-white/5 dark:bg-gray-800/10 section-hidden">
+        <div class="container mx-auto max-w-4xl text-center">
+            <span class="text-6xl text-amber-500/50">"</span>
+            <p class="text-xl md:text-2xl text-slate-700 dark:text-slate-300 italic mb-8">What truly sets this gym apart is their expert team of trainers. The trainers are knowledgeable, approachable, and genuinely invested in helping members achieve their fitness goals.</p>
+            <div class="flex justify-center items-center mb-4">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-amber-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-amber-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-amber-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-amber-500"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-gray-400"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            </div>
+            <div class="flex items-center justify-center">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1974&auto=format&fit=crop" alt="Jane Doe" class="w-16 h-16 rounded-full mr-4 border-2 border-amber-500 object-cover"/>
+                <div><h4 class="font-bold text-lg">Jane Doe</h4><p class="text-slate-500">Software Engineer</p></div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- COMMUNITY SECTION -->
+    <section id="community" class="py-20 px-4 section-hidden">
+         <div class="container mx-auto bg-amber-600 rounded-2xl p-12 text-center text-white shadow-lg relative overflow-hidden">
+            <div class="absolute -top-10 -left-10 w-32 h-32 border-4 border-white/20 rounded-full"></div>
+            <div class="absolute -bottom-10 -right-10 w-32 h-32 border-4 border-white/20 rounded-full"></div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Join Our Thriving Community</h2>
+            <p class="max-w-2xl mx-auto mb-8">Become part of a supportive and motivating network of fitness enthusiasts. Share your journey, celebrate successes, and push your limits together.</p>
+            <div class="flex justify-center"><div class="relative w-full max-w-md"><input type="email" placeholder="Enter your email" class="w-full p-4 rounded-full text-slate-800 placeholder-slate-500 focus:outline-none focus:ring-4 focus:ring-white/50"/><button class="absolute right-2 top-1/2 -translate-y-1/2 px-6 py-2 font-semibold text-white bg-slate-800 rounded-full hover:bg-slate-900 transition-colors duration-300">Subscribe</button></div></div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-white/5 dark:bg-gray-900/20 border-t border-white/10">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div class="md:col-span-1"><a href="#" class="flex items-center space-x-2 mb-4"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="text-amber-500 dark:text-amber-400 w-6 h-6"><path d="M2 12h20"></path><path d="M5 5v14"></path><path d="M19 5v14"></path><path d="M3 8h2"></path><path d="M19 8h2"></path><path d="M3 16h2"></path><path d="M19 16h2"></path></svg><span class="text-xl font-bold text-slate-800 dark:text-white">Power Fitness Gym</span></a><p class="text-slate-500 mb-4">Take the first step towards a healthier, stronger you. Let's sweat, achieve, and conquer together!</p></div>
+                <div><h4 class="font-semibold mb-4">Company</h4><ul class="space-y-2 text-slate-500"><li class="hover:text-amber-500 transition-colors"><a href="#">Business</a></li><li class="hover:text-amber-500 transition-colors"><a href="#">Franchise</a></li><li class="hover:text-amber-500 transition-colors"><a href="#">Partnership</a></li></ul></div>
+                <div><h4 class="font-semibold mb-4">About Us</h4><ul class="space-y-2 text-slate-500"><li class="hover:text-amber-500 transition-colors"><a href="#">Blogs</a></li><li class="hover:text-amber-500 transition-colors"><a href="#">Security</a></li><li class="hover:text-amber-500 transition-colors"><a href="#">Careers</a></li></ul></div>
+                <div><h4 class="font-semibold mb-4">Contact</h4><ul class="space-y-2 text-slate-500"><li class="hover:text-amber-500 transition-colors"><a href="#">Contact Us</a></li><li class="hover:text-amber-500 transition-colors"><a href="#">Privacy Policy</a></li><li class="hover:text-amber-500 transition-colors"><a href="#">Terms & Conditions</a></li></ul></div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-white/10 text-center text-slate-500"><p>&copy; 2025 Power Fitness Gym. All Rights Reserved. Crafted by AN GROUP OF INDUSTRY.</p></div>
+        </div>
+    </footer>
+
+    <!-- PRICING MODAL -->
+    <div id="pricing-modal" class="modal fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+        <div class="modal-content bg-slate-100 dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-md p-8 relative">
+            <!-- Modal Content will be injected here by JS -->
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // --- THEME TOGGLE ---
+            const themeToggle = document.getElementById('theme-toggle');
+            const sunIcon = document.getElementById('theme-icon-sun');
+            const moonIcon = document.getElementById('theme-icon-moon');
+            const html = document.documentElement;
+            const dumbbellStop1 = document.getElementById('dumbbell-stop1');
+            const dumbbellStop2 = document.getElementById('dumbbell-stop2');
+
+            const applyTheme = (theme) => {
+                if (theme === 'dark') {
+                    html.classList.add('dark');
+                    sunIcon.classList.remove('hidden');
+                    moonIcon.classList.add('hidden');
+                    if(dumbbellStop1) dumbbellStop1.setAttribute('stop-color', '#555');
+                    if(dumbbellStop2) dumbbellStop2.setAttribute('stop-color', '#222');
+                } else {
+                    html.classList.remove('dark');
+                    sunIcon.classList.add('hidden');
+                    moonIcon.classList.remove('hidden');
+                    if(dumbbellStop1) dumbbellStop1.setAttribute('stop-color', '#AAA');
+                    if(dumbbellStop2) dumbbellStop2.setAttribute('stop-color', '#555');
+                }
+            };
+            
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            applyTheme(savedTheme);
+
+            themeToggle.addEventListener('click', () => {
+                const newTheme = html.classList.contains('dark') ? 'light' : 'dark';
+                localStorage.setItem('theme', newTheme);
+                applyTheme(newTheme);
+            });
+
+
+            // --- MOBILE MENU ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.toggle('mobile-menu-open');
+            });
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.remove('mobile-menu-open'));
+            });
+
+
+            // --- INTERACTIVE GYMNAST MODEL ---
+            const container = document.getElementById('interactive-model-container');
+            const forearm = document.getElementById('forearm-group');
+            const bicep = document.getElementById('bicep');
+            let isAnimating = false;
+            let targetRotation = 0;
+            let currentRotation = 0;
+            
+            container.addEventListener('mousemove', (e) => {
+                if (isAnimating) return;
+                const rect = container.getBoundingClientRect();
+                const mouseY = e.clientY - rect.top;
+                targetRotation = (mouseY / rect.height) * -120;
+            });
+
+            container.addEventListener('mouseleave', () => {
+                 if (isAnimating) return;
+                 targetRotation = 0;
+            });
+            
+            container.addEventListener('click', () => {
+                if (isAnimating) return;
+                isAnimating = true;
+                let reps = 0;
+                const interval = setInterval(() => {
+                    targetRotation = -120;
+                    setTimeout(() => { targetRotation = 0; }, 100);
+                    reps++;
+                    if (reps >= 3) {
+                        clearInterval(interval);
+                        setTimeout(() => { isAnimating = false; }, 200);
+                    }
+                }, 200);
+            });
+
+            function animateCurl() {
+                const force = targetRotation - currentRotation;
+                const velocity = force * 0.1;
+                currentRotation += velocity;
+
+                forearm.style.transform = `rotate(${currentRotation}deg)`;
+                forearm.style.transformOrigin = '230px 320px';
+
+                const bicepScale = 1 + (Math.abs(currentRotation) / 120) * 0.35;
+                bicep.style.transform = `scale(${bicepScale})`;
+                bicep.style.transformOrigin = '250px 230px';
+
+                requestAnimationFrame(animateCurl);
+            }
+            animateCurl();
+
+
+            // --- SCROLL ANIMATIONS ---
+            const sections = document.querySelectorAll('.section-hidden');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('section-visible');
+                    }
+                });
+            }, { threshold: 0.1 });
+            sections.forEach(section => observer.observe(section));
+            
+            
+            // --- PRICING MODAL LOGIC ---
+            const modal = document.getElementById('pricing-modal');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            document.querySelectorAll('.choose-plan-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const plan = JSON.parse(e.currentTarget.dataset.plan);
+                    modalContent.innerHTML = `
+                        <button id="modal-close-btn" class="absolute top-4 right-4 text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
+                        <div class="text-center">
+                            <h2 class="text-2xl font-bold mb-2">You've Selected</h2>
+                            <h3 class="text-3xl font-bold text-amber-500 mb-4">${plan.name}</h3>
+                            <p class="text-5xl font-extrabold mb-6">${plan.price}<span class="text-xl font-normal text-slate-500">/mo</span></p>
+                            <div class="bg-amber-500/10 dark:bg-amber-400/10 p-4 rounded-lg mb-6 text-left">
+                                <ul class="space-y-3">
+                                    ${plan.features.map(feature => `
+                                        <li class="flex items-center space-x-3">
+                                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 text-green-500 flex-shrink-0"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                                            <span class="text-slate-700 dark:text-slate-300">${feature}</span>
+                                        </li>
+                                    `).join('')}
+                                </ul>
+                            </div>
+                            <button class="w-full py-3 font-semibold rounded-full transition-colors duration-300 bg-amber-600 text-white hover:bg-amber-700">Confirm & Proceed</button>
+                            <p class="text-xs text-slate-500 mt-4">You can change or cancel your plan anytime.</p>
+                        </div>
+                    `;
+                    modal.classList.add('modal-open');
+                });
+            });
+
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal || e.target.closest('#modal-close-btn')) {
+                    modal.classList.remove('modal-open');
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
+
